@@ -1,7 +1,7 @@
 <div id="carouselExampleControls" class="carousel slide " data-ride="carousel">
   <div class="carousel-inner ">
     <div class="carousel-item component" *ngFor="let image of images; let position=index; first as isFirst"
-         [class.active]="isFirst">
+      [class.active]="isFirst">
       <img class="d-block " src="{{image.src}}" alt="{{image.alt}}">
     </div>
   </div>
@@ -13,4 +13,7 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
+</div>
+<div>
+  <button class="btn btn-success" (click)="clickHelp()">Click Me!</button>
 </div>
