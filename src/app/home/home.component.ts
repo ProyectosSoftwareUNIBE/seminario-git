@@ -1,33 +1,30 @@
-import {Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core';
-import {ImageModel} from '../model/image.model';
-import {NameModel} from '../model/name.model';
-import {MenuComponent} from '../menu/menu.component';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { ImageModel } from '../model/image.model';
+import { NameModel } from '../model/name.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
   public images: ImageModel[];
-  @ViewChild(MenuComponent, {static: false}) menu;
-  public name: NameModel;
+  public valueEmittedFromChildComponent: NameModel = { name: null, age: null };
 
-  constructor(private cdRef: ChangeDetectorRef) {
-    this.name = {name: '', age: 0};
+  constructor() {
   }
 
-  ngAfterViewInit(): void {
-    this.name = this.menu.name;
-    console.log(this.name);
-    this.cdRef.detectChanges();
-  }
+ 
 
   ngOnInit(): void {
     this.images = [
-      {src: '/assets/descarga.jpg', alt: 'img1'},
-      {src: '/assets/descarga2.jpg', alt: 'img2'}
+      { src: '/assets/descarga.jpg', alt: 'img1' },
+      { src: '/assets/descarga2.jpg', alt: 'img2' }
     ];
+  }
+  parentEventHandlerFunction(valueEmmited) {
+    this.valueEmittedFromChildComponent = valueEmmited;
+
   }
 
 }
