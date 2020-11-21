@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import {UserModel} from '../model/user.model';
 import {AuthService} from '../services/auth.service';
+import {UserFirebaseService} from '../services/user-firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,8 @@ import {AuthService} from '../services/auth.service';
 export class LoginComponent implements OnInit {
   public user: UserModel;
 
-  constructor(private router: Router, private autService: AuthService) {
-
+  constructor(private router: Router, private autService: AuthService, private userFirebaseService: UserFirebaseService) {
+    this.user = {name: 'test', password: 'password'};
   }
 
   ngOnInit(): void {
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     if (localStorage.getItem('token') !== null) {
       this.router.navigate(['/list']);
     }
+    this.test();
   }
 
   login(): void {
@@ -30,5 +32,18 @@ export class LoginComponent implements OnInit {
 
       }
     );
+  }
+
+  test(): void {
+    this.userFirebaseService.getUser(this.user.name).subscribe(data =>
+      data.forEach(item => {
+          const datos: UserModel = item.payload.doc.data();
+          if (datos.password === this.user.password) {
+            this.login();
+          } else {
+            alert('datos incorrectos');
+          }
+        }
+      ));
   }
 }
