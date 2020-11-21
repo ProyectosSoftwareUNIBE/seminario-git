@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import {UserModel} from '../model/user.model';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,19 +11,24 @@ import {UserModel} from '../model/user.model';
 export class LoginComponent implements OnInit {
   public user: UserModel;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private autService: AuthService) {
 
   }
 
   ngOnInit(): void {
     this.user = {name: '', password: ''};
+    if (localStorage.getItem('token') !== null) {
+      this.router.navigate(['/list']);
+    }
   }
 
   login(): void {
-    if (this.user.name === 'rfalconi@unibe.edu.ec' && this.user.password === '12345') {
-      this.router.navigate(['/list']);
-    } else {
-      alert('datos incorrectos');
-    }
+    this.autService.login(this.user).subscribe(
+      data => {
+        localStorage.setItem('token', data);
+        this.router.navigate(['/list']);
+
+      }
+    );
   }
 }

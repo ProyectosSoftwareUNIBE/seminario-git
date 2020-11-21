@@ -1,11 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {ListComponent} from './list/list.component';
-import { ItemComponent } from './item/item.component';
+import {ItemComponent} from './item/item.component';
+import {AuthService} from './services/auth.service';
+import {NewsService} from './services/news.service';
 
 @NgModule({
   declarations: [
@@ -19,8 +22,12 @@ import { ItemComponent } from './item/item.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    NewsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
