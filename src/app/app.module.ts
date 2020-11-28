@@ -16,13 +16,15 @@ import {ItemComponent} from './item/item.component';
 import {AuthService} from './services/auth.service';
 import {NewsService} from './services/news.service';
 import {UserFirebaseService} from './services/user-firebase.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ListComponent,
-    ItemComponent
+    ItemComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
