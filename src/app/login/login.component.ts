@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       data.forEach(item => {
           const datos: UserModel = item.payload.doc.data();
           if (datos.password === this.user.password) {
-            this.login();
+            this.router.navigate(['/list']);
           } else {
             alert('datos incorrectos');
           }
